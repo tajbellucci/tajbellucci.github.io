@@ -637,7 +637,7 @@ button { font: inherit; background: none; border: none; cursor: pointer; color: 
 
 .wrow {
   display: grid;
-  grid-template-columns: 64px 1.1fr 1.6fr auto;
+  grid-template-columns: 64px 1fr 1.4fr auto;
   align-items: center;
   gap: 28px;
   padding: 26px 8px;
@@ -658,6 +658,27 @@ button { font: inherit; background: none; border: none; cursor: pointer; color: 
   font-weight: 500;
   font-size: 21px;
   letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+
+.wrow-metric {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--ember);
+  border: 1px solid rgba(232, 93, 61, 0.3);
+  background: var(--ember-soft);
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.wrow-metric.is-dev {
+  color: var(--muted);
+  border-color: var(--line);
+  background: transparent;
 }
 
 .wrow-desc { font-size: 14px; color: var(--muted); }

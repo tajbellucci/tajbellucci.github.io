@@ -1,49 +1,64 @@
-/* GitHub-style contribution heatmap — decorative "maximum activity" grid.
-   53 weeks x 7 days, weighted toward high levels so the board reads full and busy.
-   No network calls; purely visual. Swap generateLevel() for real data later. */
+/* GitHub-style contribution heatmap — REAL data for tajbellucci.
+   Source: github-contributions-api.jogruber.de/v4/tajbellucci (fetched 2026-07-09).
+   Update REAL_CONTRIBUTIONS below periodically; no live network call (keeps the
+   page working offline / without hitting rate limits on every visitor). */
 (function () {
   const graph = document.getElementById("contrib-graph");
   const totalEl = document.getElementById("contrib-total");
   if (!graph) return;
 
-  const WEEKS = 53;
-  const DAYS = 7;
+  const REAL_CONTRIBUTIONS = {
+    "2026-01-17": 3,
+    "2026-06-27": 5,
+    "2026-06-28": 1,
+    "2026-07-04": 1,
+    "2026-07-06": 4,
+    "2026-07-07": 1,
+    "2026-07-09": 7,
+  };
+  const REAL_TOTAL = 22;
 
-  // Weighted RNG: mostly levels 3–4 ("maximum contributions" look),
-  // occasional dips so it feels organic rather than a solid block.
-  function generateLevel() {
-    const r = Math.random();
-    if (r < 0.04) return 0;
-    if (r < 0.14) return 1;
-    if (r < 0.34) return 2;
-    if (r < 0.66) return 3;
+  function levelFor(count) {
+    if (!count) return 0;
+    if (count <= 1) return 1;
+    if (count <= 3) return 2;
+    if (count <= 5) return 3;
     return 4;
   }
 
-  // rough contribution counts per level, for the headline total
-  const perLevel = [0, 2, 5, 9, 14];
-  let total = 0;
-  const frag = document.createDocumentFragment();
+  // build a 53-week grid ending on the most recent Saturday on/after the last data date
+  const lastDate = new Date("2026-07-09T00:00:00Z");
+  const endDow = lastDate.getUTCDay(); // 0=Sun..6=Sat
+  const end = new Date(lastDate);
+  end.setUTCDate(end.getUTCDate() + (6 - endDow)); // push to Saturday
+  const start = new Date(end);
+  start.setUTCDate(start.getUTCDate() - (53 * 7 - 1));
 
-  for (let w = 0; w < WEEKS; w++) {
+  const frag = document.createDocumentFragment();
+  let cellIndex = 0;
+  const cursor = new Date(start);
+
+  while (cursor <= end) {
     const col = document.createElement("div");
     col.className = "contrib-col";
-    for (let d = 0; d < DAYS; d++) {
-      const lvl = generateLevel();
-      total += perLevel[lvl] + Math.floor(Math.random() * 4);
+    for (let d = 0; d < 7; d++) {
+      const iso = cursor.toISOString().slice(0, 10);
+      const count = REAL_CONTRIBUTIONS[iso] || 0;
+      const lvl = levelFor(count);
       const cell = document.createElement("i");
       cell.className = "cell lv" + lvl;
-      cell.style.setProperty("--i", w * DAYS + d);
+      cell.style.setProperty("--i", cellIndex++);
+      cell.title = `${count} contribution${count === 1 ? "" : "s"} on ${iso}`;
       col.appendChild(cell);
+      cursor.setUTCDate(cursor.getUTCDate() + 1);
     }
     frag.appendChild(col);
   }
   graph.appendChild(frag);
 
-  // count up the headline number when it scrolls into view
   if (totalEl) {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const finalStr = total.toLocaleString() + "+";
+    const finalStr = REAL_TOTAL.toLocaleString();
     if (reduced || typeof IntersectionObserver === "undefined") {
       totalEl.textContent = finalStr;
     } else {
@@ -52,11 +67,11 @@
           if (!e.isIntersecting) return;
           io.disconnect();
           const start = performance.now();
-          const dur = 1400;
+          const dur = 900;
           (function tick(now) {
             const p = Math.min((now - start) / dur, 1);
             const eased = 1 - Math.pow(1 - p, 3);
-            totalEl.textContent = Math.round(total * eased).toLocaleString() + (p === 1 ? "+" : "");
+            totalEl.textContent = Math.round(REAL_TOTAL * eased).toLocaleString();
             if (p < 1) requestAnimationFrame(tick);
           })(start);
         });
