@@ -3,50 +3,670 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Taj Magsi</title>
+<title>Taj Magsi — Builder, Founder, Head Innovator</title>
 <style>
   :root {
-    --bg: #0A0A0A;
-    --body: #E5E5E5;
+    --bg: #080808;
+    --surface: #111111;
+    --surface2: #171717;
+    --body: #D4D4D4;
+    --secondary: rgba(212,212,212,0.5);
     --white: #FFFFFF;
-    --secondary: rgba(229,229,229,0.5);
     --accent: #4A9EFF;
+    --accent2: #7C6FFF;
+    --green: #34C97A;
+    --orange: #F5820D;
+    --radius: 10px;
+    --border: rgba(255,255,255,0.07);
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
   body {
     background: var(--bg);
     color: var(--body);
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    font-size: 16px;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(8,8,8,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 0;
+  }
+
+  nav .inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-name {
+    font-weight: 700;
+    color: var(--white);
+    font-size: 15px;
+    letter-spacing: -0.2px;
+  }
+
+  .nav-links { display: flex; gap: 24px; }
+  .nav-links a { color: var(--secondary); font-size: 14px; }
+  .nav-links a:hover { color: var(--white); text-decoration: none; }
+
+  /* HERO */
+  .hero {
     min-height: 100vh;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
+    padding: 120px 0 80px;
   }
-  .wrap { max-width: 560px; padding: 40px 24px; }
-  h1 { color: var(--white); font-size: 36px; letter-spacing: -0.5px; margin-bottom: 12px; }
-  p { color: var(--body); line-height: 1.6; margin-bottom: 24px; }
-  .links { display: flex; gap: 16px; flex-wrap: wrap; }
-  a {
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(74,158,255,0.1);
+    border: 1px solid rgba(74,158,255,0.2);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 12px;
     color: var(--accent);
-    text-decoration: none;
+    letter-spacing: 0.5px;
+    margin-bottom: 28px;
+    width: fit-content;
+  }
+
+  .hero h1 {
+    color: var(--white);
+    font-size: clamp(44px, 7.5vw, 76px);
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 span { color: var(--accent); }
+
+  .hero-sub {
+    font-size: 18px;
+    color: var(--secondary);
+    max-width: 580px;
+    line-height: 1.65;
+    margin-bottom: 16px;
+  }
+
+  .hero-role {
     font-size: 14px;
-    border: 1px solid rgba(74,158,255,0.3);
-    padding: 10px 20px;
-    border-radius: 6px;
+    color: var(--secondary);
+    margin-bottom: 40px;
+  }
+
+  .hero-role strong { color: var(--body); }
+
+  .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .btn-p {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--white);
+    padding: 13px 26px;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: 14px;
+    transition: opacity 150ms;
+  }
+  .btn-p:hover { opacity: 0.82; text-decoration: none; }
+
+  .btn-s {
+    display: inline-block;
+    border: 1px solid var(--border);
+    color: var(--body);
+    padding: 13px 26px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    transition: border-color 150ms, color 150ms;
+  }
+  .btn-s:hover { border-color: rgba(255,255,255,0.25); color: var(--white); text-decoration: none; }
+
+  /* STATS ROW */
+  .stats {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 32px 0;
+    margin-bottom: 80px;
+  }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.5px;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-label { font-size: 12px; color: var(--secondary); letter-spacing: 0.3px; }
+
+  @media (max-width: 640px) {
+    .stats-row { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  }
+
+  /* SECTION */
+  .section { padding: 60px 0; }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+
+  .section-title {
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--secondary);
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* PROJECT CARDS */
+  .projects { display: flex; flex-direction: column; gap: 20px; }
+
+  .pcard {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
     transition: border-color 200ms;
   }
-  a:hover { border-color: var(--accent); }
+
+  .pcard:hover { border-color: rgba(255,255,255,0.14); }
+
+  .pcard-visual {
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pcard-visual-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.12);
+    letter-spacing: -1px;
+    user-select: none;
+    position: absolute;
+    right: 24px;
+    bottom: 12px;
+  }
+
+  .pcard-role {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.8);
+    background: rgba(0,0,0,0.25);
+    backdrop-filter: blur(4px);
+    z-index: 1;
+  }
+
+  .pcard-body { padding: 24px 28px 26px; }
+
+  .pcard-name {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 6px;
+    letter-spacing: -0.2px;
+  }
+
+  .pcard-what {
+    font-size: 14px;
+    color: var(--secondary);
+    margin-bottom: 14px;
+  }
+
+  .pcard-outcome {
+    font-size: 14px;
+    color: var(--body);
+    background: var(--surface2);
+    border-left: 3px solid var(--accent);
+    padding: 10px 14px;
+    border-radius: 0 6px 6px 0;
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  .pcard-outcome.green { border-color: var(--green); }
+  .pcard-outcome.orange { border-color: var(--orange); }
+  .pcard-outcome.purple { border-color: var(--accent2); }
+
+  .pcard-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 16px; }
+
+  .tag {
+    font-size: 11px;
+    padding: 4px 10px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--secondary);
+  }
+
+  .pcard-links { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .link-btn {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: opacity 150ms;
+  }
+
+  .link-btn:hover { opacity: 0.75; text-decoration: none; }
+  .link-btn.ghost { color: var(--secondary); }
+  .link-btn.ghost:hover { color: var(--body); }
+
+  /* Color themes for card visuals */
+  .v-blue   { background: linear-gradient(135deg, #0D1B3E 0%, #0A2855 100%); }
+  .v-teal   { background: linear-gradient(135deg, #051F20 0%, #0B3D3F 100%); }
+  .v-purple { background: linear-gradient(135deg, #1A0D3A 0%, #2D1063 100%); }
+  .v-green  { background: linear-gradient(135deg, #0A2010 0%, #103A20 100%); }
+  .v-crimson{ background: linear-gradient(135deg, #2A0A0A 0%, #4A1010 100%); }
+  .v-amber  { background: linear-gradient(135deg, #2A1A00 0%, #3D2800 100%); }
+  .v-slate  { background: linear-gradient(135deg, #0F1520 0%, #1A2235 100%); }
+  .v-rose   { background: linear-gradient(135deg, #2A0D1F 0%, #3D1530 100%); }
+  .v-indigo { background: linear-gradient(135deg, #0D1040 0%, #1A1A5A 100%); }
+
+  /* CONTACT */
+  .contact-section {
+    border-top: 1px solid var(--border);
+    padding: 80px 0 120px;
+    text-align: center;
+  }
+
+  .contact-section h2 {
+    color: var(--white);
+    font-size: 34px;
+    letter-spacing: -0.5px;
+    margin-bottom: 12px;
+  }
+
+  .contact-section p {
+    color: var(--secondary);
+    margin-bottom: 36px;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 16px;
+  }
+
+  .contact-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  /* REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+  @media (max-width: 640px) {
+    .pcard-visual { height: 100px; padding: 0 20px; }
+    .pcard-body { padding: 18px 20px 20px; }
+    .hero h1 { font-size: 38px; }
+    nav .nav-links { display: none; }
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>Taj Magsi</h1>
-  <p>mHealth founder and AI product builder. Co-founder of DilKiBaat, Chapter Lead at AI Collective Karachi, and builder of privacy-first NLP infrastructure for clinical mental health applications.</p>
-  <div class="links">
-    <a href="https://www.linkedin.com/in/tajmagsi">LinkedIn</a>
-    <a href="mailto:tajmagsi2017@gmail.com">Email</a>
+
+<!-- NAV -->
+<nav>
+  <div class="inner">
+    <span class="nav-name">Taj Magsi</span>
+    <div class="nav-links">
+      <a href="#projects">Projects</a>
+      <a href="https://www.linkedin.com/in/tajmagsi">LinkedIn</a>
+      <a href="mailto:tajmagsi2017@gmail.com">Email</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge">Head Innovator · Founder · AI Builder</div>
+    <h1>Building <span>AI products</span> that reach the people left out.</h1>
+    <p class="hero-sub">Founder of Pakistan's first national CBT platform. Delivering WHO/WPA-linked digital health at global scale. Building Urdu-first AI for 220M+ underserved.</p>
+    <p class="hero-role"><strong>Taj Magsi</strong> · Chapter Lead, AI Collective Karachi · mHealth Founder · LMIC Digital Health</p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-p">See Projects</a>
+      <a href="https://www.linkedin.com/in/tajmagsi" class="btn-s">LinkedIn</a>
+      <a href="mailto:tajmagsi2017@gmail.com" class="btn-s">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="container">
+    <div class="stats-row">
+      <div>
+        <div class="stat-num">50+</div>
+        <div class="stat-label">Clinicians on DilKiBaat</div>
+      </div>
+      <div>
+        <div class="stat-num">100+</div>
+        <div class="stat-label">Countries via 123CBT.online</div>
+      </div>
+      <div>
+        <div class="stat-num">250K+</div>
+        <div class="stat-label">Psychiatrists reached (WPA)</div>
+      </div>
+      <div>
+        <div class="stat-num">9+</div>
+        <div class="stat-label">Products shipped</div>
+      </div>
+    </div>
   </div>
 </div>
+
+<!-- PROJECTS -->
+<section class="section" id="projects">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-title">Projects</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="projects">
+
+      <!-- DilKiBaat -->
+      <div class="pcard reveal">
+        <div class="pcard-visual v-blue">
+          <span class="pcard-role">Founder and Managing Director</span>
+          <span class="pcard-visual-title">DilKiBaat</span>
+        </div>
+        <div class="pcard-body">
+          <div class="pcard-name">DilKiBaat</div>
+          <div class="pcard-what">Pakistan's first national CBT-based mental health platform connecting bilingual clinicians with individuals and organisations. Includes Aiza, an AI support tool for low-literacy populations.</div>
+          <div class="pcard-outcome green">50+ certified bilingual clinicians on-platform. Incubated at the National Incubation Center. Cambridge-linked research partnership. Active enterprise client pipeline.</div>
+          <div class="pcard-tags">
+            <span class="tag">Founder</span><span class="tag">CBT Platform</span><span class="tag">AI Chatbot</span><span class="tag">LMIC Health</span><span class="tag">Enterprise GTM</span><span class="tag">NIC Incubation</span>
+          </div>
+          <div class="pcard-links">
+            <a href="https://dilkibaat.ca" class="link-btn">dilkibaat.ca</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aiza AI -->
+      <div class="pcard reveal">
+        <div class="pcard-visual v-teal">
+          <span class="pcard-role">Founder and Lead</span>
+          <span class="pcard-visual-title">Aiza AI</span>
+        </div>
+        <div class="pcard-body">
+          <div class="pcard-name">Aiza AI</div>
+          <div class="pcard-what">Urdu-first, culturally aware Android mental health app. Built for real conversations in South Asian languages. Designed for populations with limited access to formal care. Built as part of the Shipkaro founder challenge.</div>
+          <div class="pcard-outcome">Android app in active development. Urdu-first voice-aware design targeting 220M+ Urdu speakers. Built and shipped publicly as a bootstrapped solo founder using Claude Code.</div>
+          <div class="pcard-tags">
+            <span class="tag">Android</span><span class="tag">Kotlin</span><span class="tag">Jetpack Compose</span><span class="tag">Urdu-first</span><span class="tag">Mental Health</span><span class="tag">Founder</span>
+          </div>
+          <div class="pcard-links">
+            <a href="https://github.com/tajbellucci/aizaai" class="link-btn">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Raaha -->
+      <div class="pcard reveal">
+        <div class="pcard-visual v-purple">
+          <span class="pcard-role">Founder and Lead</span>
+          <span class="pcard-visual-title">Raaha</span>
+        </div>
+        <div class="pcard-body">
+          <div class="pcard-name">Raaha</div>
+          <div class="pcard-what">Multilingual voice and mental wellness platform built for cross-cultural populations. Supports Arabic, Urdu, Malayalam, Tagalog, and English. Focused on ease, calm, and culturally adapted mental health access.</div>
+          <div class="pcard-outcome purple">Web platform with multilingual voice interface. Designed for diaspora and LMIC populations across 5 languages. Includes pilot programme, privacy-first architecture, and national vision framing.</div>
+          <div class="pcard-tags">
+            <span class="tag">React</span><span class="tag">Multilingual</span><span class="tag">Voice UI</span><span class="tag">Mental Wellness</span><span class="tag">Arabic</span><span class="tag">Urdu</span>
+          </div>
+          <div class="pcard-links">
+            <a href="https://github.com/tajbellucci/raaha" class="link-btn">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PsychRx -->
+      <div class="pcard reveal">
+        <div class="pcard-visual v-crimson">
+          <span class="pcard-role">Founder and Lead</span>
+          <span class="pcard-visual-title">PsychRx</span>
+        </div>
+        <div class="pcard-body">
+          <div class="pcard-name">PsychRx</div>
+          <div class="pcard-what">Android mental health application in active development. Designed to simplify and personalise access to psychological support tools.</div>
+          <div class="pcard-outcome orange">In development. Android-native build using Kotlin and Jetpack Compose. Full auth, paywall, and analytics stack wired from day one.</div>
+          <div class="pcard-tags">
+            <span class="tag">Android</span><span class="tag">Kotlin</span><span class="tag">Mental Health</span><span class="tag">In Development</span>
+          </div>
+          <div class="pcard-links">
+            <a href="https://github.com/tajbellucci/PsychRx" class="link-btn">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 123CBT.online -->
+      <div class="pcard reveal">
+        <div class="pcard-visual v-green">
+          <span class="pcard-role">Project Lead and Coordinator</span>
+          <span class="pcard-visual-title">123CBT</span>
+        </div>
+        <div class="pcard-body">
+          <div class="pcard-name">123CBT.online</div>
+          <div class="pcard-what">Multilingual CBT learning platform delivered for the World Psychiatric Association. End-to-end coordination: requirements, localisation, quality assurance, and global rollout. Includes a Cambridge-published animated psychoeducation series for low-literacy populations.</div>
+          <div class="pcard-outcome green">Live globally. Accessed by psychiatrists across 100+ countries. Cambridge-published feasibility study on animated series. WPA partnership.</div>
+          <div class="pcard-tags">
+            <span class="tag">WPA Partnership</span><span class="tag">Multilingual LMS</span><span class="tag">100+ Countries</span><span class="tag">Cambridge Publication</span><span class="tag">LMIC</span>
+          </div>
+          <div class="pcard-links">
+            <a href="https://123cbt.online" class="link-btn">123cbt.online</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- OpenMed-MH -->
+      <div class="pcard reveal">
+        <div class="pcard-visual v-slate">
+          <span class="pcard-role">Founder and Lead</span>
+          <span class="pcard-visual-title">OpenMed-MH</span>
+        </div>
+        <div class="pcard-body">
+          <div class="pcard-name">OpenMed-MH</div>
+          <div class="pcard-what">Privacy-first clinical NLP infrastructure for mental health text. Apache-2.0 licensed clinical named entity recognition and PII de-identification. Only fully open-commercial stack in this niche.</div>
+          <div class="pcard-outcome">Only Apache-2.0 clinical NLP stack for mental health (competitors MentalBERT/MentaLLaMA are non-commercial). Dual OSS and commercial positioning with day-1 service revenue model.</div>
+          <div class="pcard-tags">
+            <span class="tag">Python</span><span class="tag">HuggingFace</span><span class="tag">Clinical NER</span><span class="tag">PII De-id</span><span class="tag">Apache-2.0</span><span class="tag">Open Source</span>
+          </div>
+          <div class="pcard-links">
+            <a href="https://github.com/tajbellucci/noteveil" class="link-btn">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lyari 3D Crisis Map -->
+      <div class="pcard reveal">
+        <div class="pcard-visual v-amber">
+          <span class="pcard-role">Creator and Lead</span>
+          <span class="pcard-visual-title">Lyari Map</span>
+        </div>
+        <div class="pcard-body">
+          <div class="pcard-name">Lyari 3D Crisis Map</div>
+          <div class="pcard-what">Interactive bilingual (English/Urdu) 3D map of 12 documented crisis issues in Lyari, Karachi. Severity-coded thematic layers, community edit flow with admin moderation. Ships as a single HTML file with no build step.</div>
+          <div class="pcard-outcome orange">12 crisis issues mapped with bilingual labels. Community-moderated edit flow. Zero build dependencies. Civic tech for an underserved urban community of 1M+ residents.</div>
+          <div class="pcard-tags">
+            <span class="tag">MapLibre-GL</span><span class="tag">GSAP</span><span class="tag">Bilingual UX</span><span class="tag">Civic Tech</span><span class="tag">Vanilla JS</span>
+          </div>
+          <div class="pcard-links">
+            <a href="https://github.com/tajbellucci/lyari-3d-map" class="link-btn">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Practice-in-a-Box -->
+      <div class="pcard reveal">
+        <div class="pcard-visual v-rose">
+          <span class="pcard-role">Founder and Lead</span>
+          <span class="pcard-visual-title">PiaB</span>
+        </div>
+        <div class="pcard-body">
+          <div class="pcard-name">Practice-in-a-Box</div>
+          <div class="pcard-what">90-day operating system for Pakistani mental health clinicians. Done-for-you setup: website, booking, reminders, monthly reports. Plus an AI-Ready Practice cohort built on a 50+ warm clinician network.</div>
+          <div class="pcard-outcome purple">50+ clinician warm network as launch base. Active 90-day validation sprint. Gates-before-speed model. PKR 30k-65k setup plus recurring monthly revenue per clinician.</div>
+          <div class="pcard-tags">
+            <span class="tag">Venture OS</span><span class="tag">Cohort GTM</span><span class="tag">AI Workflows</span><span class="tag">MH Clinicians</span><span class="tag">Pakistan</span>
+          </div>
+          <div class="pcard-links">
+            <a href="https://github.com/tajbellucci/piab-90" class="link-btn">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Content Desk -->
+      <div class="pcard reveal">
+        <div class="pcard-visual v-indigo">
+          <span class="pcard-role">Creator and Lead</span>
+          <span class="pcard-visual-title">Content Desk</span>
+        </div>
+        <div class="pcard-body">
+          <div class="pcard-name">Content Desk</div>
+          <div class="pcard-what">Multi-agent AI content pipeline. Writer agents draft output; a fresh-context checker agent independently rejects non-compliant content before it ships. Token-optimised orchestration built for cross-platform production.</div>
+          <div class="pcard-outcome">Operational internal tool. Agentic writer plus independent checker pattern eliminates editorial drift. Used for cross-platform content at scale.</div>
+          <div class="pcard-tags">
+            <span class="tag">Claude API</span><span class="tag">Multi-Agent</span><span class="tag">AI Orchestration</span><span class="tag">Content Pipeline</span>
+          </div>
+          <div class="pcard-links">
+            <a href="https://github.com/tajbellucci/content-desk" class="link-btn">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Creator Engine -->
+      <div class="pcard reveal">
+        <div class="pcard-visual v-blue">
+          <span class="pcard-role">Creator and Lead</span>
+          <span class="pcard-visual-title">Creator Engine</span>
+        </div>
+        <div class="pcard-body">
+          <div class="pcard-name">Creator Engine</div>
+          <div class="pcard-what">Content business built on a proven creator playbook. Recipe library, hooks, and monetisation strategy adapted into a repeatable AI-assisted publishing system.</div>
+          <div class="pcard-outcome">In development. Structured recipe/hooks library plus workflow docs for a repeatable AI-assisted content operation.</div>
+          <div class="pcard-tags">
+            <span class="tag">Content Strategy</span><span class="tag">AI-Assisted Writing</span><span class="tag">Monetisation</span><span class="tag">In Development</span>
+          </div>
+          <div class="pcard-links">
+            <a href="https://github.com/tajbellucci/creator-engine" class="link-btn">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pocket Therapist -->
+      <div class="pcard reveal">
+        <div class="pcard-visual v-teal">
+          <span class="pcard-role">Founder and Lead</span>
+          <span class="pcard-visual-title">Pocket Therapist</span>
+        </div>
+        <div class="pcard-body">
+          <div class="pcard-name">Pocket Therapist</div>
+          <div class="pcard-what">Series of single-purpose mental-wellness mini apps. Each app solves one narrow, well-defined emotional-support need rather than bundling a full therapy platform.</div>
+          <div class="pcard-outcome">In development. PRD and design system defined for a focused, single-purpose app series.</div>
+          <div class="pcard-tags">
+            <span class="tag">Mental Health</span><span class="tag">Mini Apps</span><span class="tag">Product Design</span><span class="tag">In Development</span>
+          </div>
+          <div class="pcard-links">
+            <a href="https://github.com/tajbellucci/pocket-therapist" class="link-btn">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Venture Lab Qatar -->
+      <div class="pcard reveal">
+        <div class="pcard-visual v-indigo">
+          <span class="pcard-role">Founder</span>
+          <span class="pcard-visual-title">Venture Lab</span>
+        </div>
+        <div class="pcard-body">
+          <div class="pcard-name">Venture Lab Qatar</div>
+          <div class="pcard-what">AI and voice venture built for Qatar incubation. MENA/Vision 2030-aligned agentic product angle, pilot prospects, and QSTP application track.</div>
+          <div class="pcard-outcome">In development. Founder story, MVP spec, and QSTP incubation application in progress.</div>
+          <div class="pcard-tags">
+            <span class="tag">AI Voice</span><span class="tag">MENA</span><span class="tag">Qatar Incubation</span><span class="tag">In Development</span>
+          </div>
+          <div class="pcard-links">
+            <a href="https://github.com/tajbellucci/venture-lab" class="link-btn">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-section">
+  <div class="container">
+    <h2>Let's build together.</h2>
+    <p>Building at the intersection of AI, mental health, and LMIC contexts. Open to collaborations, advisory roles, and the right contracts.</p>
+    <div class="contact-row">
+      <a href="mailto:tajmagsi2017@gmail.com" class="btn-p">Email Taj</a>
+      <a href="https://www.linkedin.com/in/tajmagsi" class="btn-s">LinkedIn</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
 </body>
 </html>
