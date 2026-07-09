@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Taj M. Magsi — Project Lead, Hemingway | Portfolio</title>
+<style>
+  :root {
+    --bg: #0A0A0A;
+    --surface: #111111;
+    --body: #E5E5E5;
+    --secondary: rgba(229,229,229,0.6);
+    --white: #FFFFFF;
+    --radius: 8px;
+    --accent: #4A9EFF;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--body);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 120px 0; }
+  @media (max-width: 768px) { section { padding: 80px 0; } }
+
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 0;
+  }
+
+  .hero-label {
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--secondary);
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    color: var(--white);
+    font-size: clamp(42px, 7vw, 72px);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin-bottom: 28px;
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    color: var(--secondary);
+    max-width: 560px;
+    line-height: 1.6;
+    margin-bottom: 36px;
+  }
+
+  .hero-cta {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--white);
+    padding: 16px 32px;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: 15px;
+    transition: opacity 200ms ease;
+  }
+
+  .hero-cta:hover { opacity: 0.85; text-decoration: none; }
+
+  .section-label {
+    font-size: 12px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--secondary);
+    margin-bottom: 48px;
+  }
+
+  .case-studies { display: flex; flex-direction: column; gap: 32px; }
+
+  .case-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 36px 40px;
+    border: 1px solid rgba(229,229,229,0.06);
+    transition: border-color 200ms ease;
+  }
+
+  .case-card:hover { border-color: rgba(74,158,255,0.3); }
+
+  .case-tag {
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .case-card h3 {
+    color: var(--white);
+    font-size: 22px;
+    letter-spacing: -0.3px;
+    margin-bottom: 12px;
+  }
+
+  .case-card p { color: var(--body); margin-bottom: 16px; }
+  .case-stack { font-size: 13px; color: var(--secondary); margin-bottom: 16px; }
+  .case-link { font-size: 14px; font-weight: 600; }
+
+  .skills-section {
+    border-top: 1px solid rgba(229,229,229,0.08);
+    padding: 80px 0;
+  }
+
+  .skills-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+
+  .skill-chip {
+    background: var(--surface);
+    border: 1px solid rgba(229,229,229,0.1);
+    border-radius: var(--radius);
+    padding: 8px 16px;
+    font-size: 14px;
+    color: var(--body);
+  }
+
+  .contact-section {
+    border-top: 1px solid rgba(229,229,229,0.08);
+    padding: 80px 0 120px;
+    text-align: center;
+  }
+
+  .contact-section h2 {
+    color: var(--white);
+    font-size: 36px;
+    letter-spacing: -0.5px;
+    margin-bottom: 16px;
+  }
+
+  .contact-section p {
+    color: var(--secondary);
+    margin-bottom: 32px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .contact-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+
+  .contact-btn {
+    display: inline-block;
+    border: 1px solid rgba(229,229,229,0.2);
+    border-radius: var(--radius);
+    padding: 14px 28px;
+    color: var(--body);
+    font-size: 14px;
+    transition: border-color 200ms ease, color 200ms ease;
+  }
+
+  .contact-btn:hover { border-color: var(--accent); color: var(--white); text-decoration: none; }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal:nth-child(2) { transition-delay: 80ms; }
+  .reveal:nth-child(3) { transition-delay: 160ms; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-label">Project Lead — Hemingway | Application Portfolio</div>
+    <h1>Research-to-delivery MH projects at global scale</h1>
+    <p class="hero-sub">4+ years building and distributing digital mental health programmes linked to the World Psychiatric Association, Cambridge, and Pakistan's National Incubation Center — with a commercial lens, not just a clinical one.</p>
+    <a href="#work" class="hero-cta">See Selected Work</a>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section id="work">
+  <div class="container">
+    <div class="section-label">Selected Work</div>
+    <div class="case-studies">
+
+      <div class="case-card reveal">
+        <div class="case-tag">End-to-End Research · Production · Global Distribution</div>
+        <h3>123CBT.online — WPA Mental Health Learning Platform</h3>
+        <p><strong>Problem:</strong> The World Psychiatric Association needed a multilingual, globally accessible CBT learning platform for its 250,000+ psychiatrist members across 100+ countries — built with limited in-house tech capacity.</p>
+        <p><strong>What was built:</strong> Coordinated end-to-end delivery from requirements gathering through content production, quality assurance, localisation, and global rollout. Managed cross-functional stakeholders including WPA leadership, clinical reviewers, and freelance developers across multiple timezones.</p>
+        <p><strong>Outcome:</strong> Live platform accessed by psychiatrists across 100+ countries. Demonstrated full pipeline ownership — research, production, and distribution under one remit — the same scope this Project Lead role requires.</p>
+        <div class="case-stack">Project management · Stakeholder coordination · Multilingual content · Global distribution · WPA partnership</div>
+        <a href="https://123CBT.online" class="case-link">Visit 123CBT.online →</a>
+      </div>
+
+      <div class="case-card reveal">
+        <div class="case-tag">Research · Scripting · Production · Cambridge Publication</div>
+        <h3>Animated Psychoeducation Series — Low-Literacy MH Content, PACT</h3>
+        <p><strong>Problem:</strong> PACT needed mental health education content for populations with low or no formal education in Pakistan — existing materials assumed literacy levels and cultural contexts that didn't apply.</p>
+        <p><strong>What was built:</strong> Led production of a culturally adapted animated series from scripting through visual development, clinical review coordination, and community distribution. Subsequently submitted to and evaluated in a peer-reviewed feasibility and acceptability study.</p>
+        <p><strong>Outcome:</strong> Published in a Cambridge University Press journal as a feasibility pilot study — validating both the content approach and the LMIC-adapted research methodology. Full concept-to-peer-reviewed-outcome pipeline with no external project manager.</p>
+        <div class="case-stack">Content research · Script production · Clinical review coordination · Distribution · Cambridge-published evaluation</div>
+      </div>
+
+      <div class="case-card reveal">
+        <div class="case-tag">Founder · Commercial MH Innovation · AI Product</div>
+        <h3>DilKiBaat — Pakistan's First National CBT Platform</h3>
+        <p><strong>Problem:</strong> Pakistan has ~500 psychiatrists for 220M people. Culturally adapted, bilingual, affordable mental health care was almost entirely inaccessible digitally.</p>
+        <p><strong>What was built:</strong> Founded and operate Pakistan's first national CBT-based mental health platform connecting 50+ bilingual clinicians with individuals and organisations. Built Aiza — a conversational AI support tool designed for low-literacy, underserved populations; one of the products operating in the exact market Hemingway's Conversational AI in Mental Health report maps.</p>
+        <p><strong>Outcome:</strong> Incubated at the National Incubation Center. Active enterprise partnership development. Demonstrates the commercial lens on MH innovation this role requires — not theoretical, but operational.</p>
+        <div class="case-stack">0→1 founder · Conversational AI · Clinician network · Enterprise GTM · NIC incubation · LMIC deployment</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<div class="skills-section">
+  <div class="container">
+    <div class="section-label">Skills</div>
+    <div class="skills-list">
+      <span class="skill-chip">End-to-end project ownership</span>
+      <span class="skill-chip">Research (primary + secondary)</span>
+      <span class="skill-chip">Report production</span>
+      <span class="skill-chip">Stakeholder management</span>
+      <span class="skill-chip">MH innovation landscape</span>
+      <span class="skill-chip">Commercial lens on MH ecosystem</span>
+      <span class="skill-chip">LMIC digital health</span>
+      <span class="skill-chip">Conversational AI in MH</span>
+      <span class="skill-chip">Global distribution</span>
+      <span class="skill-chip">Published co-authorship (Cambridge, IEEE)</span>
+      <span class="skill-chip">McKinsey structured analysis</span>
+      <span class="skill-chip">Cross-functional coordination</span>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="contact-section">
+  <div class="container">
+    <h2>Let's talk</h2>
+    <p>Available to start 27 July. Built products inside the MH innovation ecosystem Hemingway reports on — happy to discuss how that translates to this report project.</p>
+    <div class="contact-links">
+      <a href="mailto:tajmagsi2017@gmail.com" class="contact-btn">tajmagsi2017@gmail.com</a>
+      <a href="https://www.linkedin.com/in/tajmagsi" class="contact-btn">LinkedIn</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
